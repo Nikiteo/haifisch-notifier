@@ -1,0 +1,63 @@
+curl -X POST http://localhost:3001/operations \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operationId": "5a82a607-2c71-004f-90c1-c0b02b4e7edd",
+    "typeOfOperation": "Debit",
+    "accountNumber": "40802810200003160753",
+    "accountAmount": "704",
+    "accountCurrencyDigitalCode": "643",
+    "status": "Active",
+    "operationStatus": "transaction",
+    "bic": "044525974",
+    "category": "cardOperation",
+    "documentNumber": "491353",
+    "operationAmount": "704",
+    "operationCurrencyDigitalCode": "643",
+    "rubleAmount": "704",
+    "counterParty": {
+      "account": "30232810500000000280",
+      "bankBic": "044525974",
+      "bankName": "АО \"ТБанк\"",
+      "corrAccount": "30101810145250000974",
+      "inn": "7710140679",
+      "kpp": "771301001",
+      "name": "АО \"ТБанк\""
+    },
+    "description": "Оплата в WB*Wildberries Podol?sk RUS",
+    "authorizationDate": "2025-07-17T15:52:07.153Z",
+    "trxnPostDate": "2025-07-17T16:11:20Z",
+    "payVo": "bank-order",
+    "cardNumber": "553420******7873",
+    "ucid": "1149606618",
+    "mcc": "5964",
+    "merch": {
+      "id": "200000001225593",
+      "city": "Podol?sk",
+      "country": "RU",
+      "name": "WB*Wildberries"
+    },
+    "acquirerId": "437783",
+    "rrn": "519815148414",
+    "payPurpose": "Отражение операции оплаты по карте номер 5534...7873 WB*Wildberries Podol?sk RU. Договор 7047586016",
+    "drawDate": "2025-07-17T16:14:07Z",
+    "receiver": {
+      "account": "30232810500000000280",
+      "name": "АО \"ТБанк\"",
+      "inn": "7710140679",
+      "kpp": "771301001",
+      "bic": "044525974",
+      "corrAccount": "30101810145250000974",
+      "bankName": "АО \"ТБанк\""
+    },
+    "payer": {
+      "account": "40802810200003160753",
+      "name": "Индивидуальный предприниматель ЖИГИЛЕЙ НИКИТА РОМАНОВИЧ",
+      "inn": "622909830629",
+      "bic": "044525974",
+      "corrAccount": "30101810145250000974",
+      "bankName": "АО \"ТБанк\""
+    },
+    "docDate": "2025-07-16T21:00:00Z",
+    "VO": "17"
+  }'
+

@@ -1,0 +1,16 @@
+curl -X POST http://localhost:3001/notification \
+  -H "Content-Type: application/json" \
+  -d '{
+
+  "notificationType": "ORDER_CREATED",
+  "orderId": 46863988737,
+  "campaignId": 23726642,
+  "items": [
+    {
+      "offerId": "100642",
+      "count": 1
+    }
+  ],
+  "createdAt": "2025-07-20T11:47:18.562Z"
+
+  }'

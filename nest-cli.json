@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"webpack": false,
+		"tsConfigPath": "tsconfig.json",
+		"assets": [],
+		"watchAssets": true,
+		"sourceRoot": "src",
+		"entryFile": "main"
+	}
+}
