@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
 import { AppLogger } from '../../../shared/logger.service.js'
 import { TbankService } from './tbank.service.js'
 import { TbankNotification } from './types/tbank-types.js'
@@ -13,14 +13,16 @@ export class TbankController {
 		try {
 			this.logger.log(`Получена операция от TBank: ${JSON.stringify(body)}`)
 			await this.tbankService.handleOperation(body)
-			return { status: 200, message: 'ok' }
+			return { status: HttpStatus.OK, message: 'ok' }
 		}
 		catch (error) {
 			this.logger.error(`Ошибка обработки операции TBank: ${error as string}`)
-			return {
-				status: 500,
-				error: 'Internal Server Error',
-			}
+			throw new HttpException(
+				{
+					message: 'Internal Server Error',
+				},
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			)
 		}
 	}
 }

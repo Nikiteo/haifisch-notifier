@@ -34,8 +34,6 @@ export class OrderStatusUpdatedNotificationHandler extends BaseNotificationHandl
 
 			const store = campaignId === 23726642 ? 'Haifisch' : 'Top'
 
-			this.logger.log(`[${store}]: Поступило уведомление - ${JSON.stringify(notification)}`)
-
 			this.logger.log(`[${store}]: Изменение статуса заказа ${orderId} в МС...`)
 
 			const { rows } = await ms.customerOrder.list({
@@ -46,7 +44,7 @@ export class OrderStatusUpdatedNotificationHandler extends BaseNotificationHandl
 
 			const [orderInMs] = rows
 
-			if (!orderInMs.id) {
+			if (orderInMs === undefined || orderInMs === null) {
 				this.logger.error(`[${store}]: Заказ ${orderId} не найден в МС`)
 				return
 			}

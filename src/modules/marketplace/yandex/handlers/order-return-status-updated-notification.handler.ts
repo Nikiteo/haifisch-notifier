@@ -43,7 +43,7 @@ export class OrderReturnStatusUpdatedNotificationHandler extends BaseNotificatio
 
 			const [orderInMs] = rows
 
-			if (!orderInMs.id) {
+			if (!orderInMs?.id) {
 				this.logger.error(`[${store}]: Заказ ${orderId} не найден в МС`)
 				return
 			}

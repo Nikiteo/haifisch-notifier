@@ -27,7 +27,7 @@ export class OrderCreatedNotificationHandler extends BaseNotificationHandler {
 
 			const store = campaignId === 23726642 ? 'Haifisch' : 'Top'
 
-			this.logger.log(`[${store}]: Поступило уведомление - ${JSON.stringify(notification)}`)
+			this.logger.log(`[${store}]: Поступило уведомление - ${notification.notificationType}`)
 			this.logger.log(`[${store}]: Создание заказа ${orderId} в МC...`)
 
 			const { rows } = await ms.customerOrder.list({
@@ -38,7 +38,7 @@ export class OrderCreatedNotificationHandler extends BaseNotificationHandler {
 
 			const [orderInMs] = rows
 
-			if (orderInMs.id) {
+			if (orderInMs !== undefined && orderInMs?.id) {
 				this.logger.warn(`[${store}]: Заказ ${orderId} уже есть в МС (id=${orderInMs.id})`)
 				return
 			}

@@ -3832,9 +3832,9 @@ export interface AccountInfo3 {
 	 * `PaymentAgent` — счет платежного агента.
 	 * `Nominal` — номинальный счет.
 	 * `NominalIpo` — номинальный счет оператора инвестиционной платформы.
-	 * * `TrustManagementSmp` — специальный счет доверительного управления.
-	 * * `Cashbox` — бизнес-копилка.
-	 * * `Invest` — инвестиционный счет.
+	 * `TrustManagementSmp` — специальный счет доверительного управления.
+	 * `Cashbox` — бизнес-копилка.
+	 * `Invest` — инвестиционный счет.
 	 */
 	accountType: string
 	/**
@@ -5753,8 +5753,8 @@ export interface AccountInfo2 {
 	 * `PaymentAgent` — счет платежного агента.
 	 * `Nominal` — номинальный счет.
 	 * `NominalIpo` — номинальный счет оператора инвестиционной платформы.
-	 * * `TrustManagementSmp` — специальный счет доверительного управления.
-	 * * `Cashbox` — бизнес-копилка.
+	 * `TrustManagementSmp` — специальный счет доверительного управления.
+	 * `Cashbox` — бизнес-копилка.
 	 */
 	accountType: string
 	/**
