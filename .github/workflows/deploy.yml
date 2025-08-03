@@ -1,0 +1,105 @@
+name: 🚀 Deploy haifisch-notifier
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: 🛠️ Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. ИНИЦИАЛИЗАЦИЯ
+    - name: Start deployment
+      run: echo "🚀 Starting deployment process"
+
+    # 2. ПОДГОТОВКА
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    # 3. СБОРКА
+    - name: Install dependencies
+      run: |
+        npm ci
+        echo "BUILD_DATE=$(date +'%Y.%m.%d-%H:%M')" >> $GITHUB_ENV
+        echo "COMMIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+
+    - name: Build project
+      run: npm run build
+
+    # 4. ДЕПЛОЙ
+    - name: Stop and clean old app
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: 87.242.119.108
+        username: nikiteo
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd ~/haifisch-notifier
+
+          echo "🛑 Stopping PM2 process..."
+          pm2 stop haifisch-notifier || true
+          pm2 delete haifisch-notifier || true
+
+          echo "🧹 Cleaning old files..."
+          rm -rf build dist node_modules .cache
+
+    - name: Upload new files
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: 87.242.119.108
+        username: nikiteo
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "."
+        target: "~/haifisch-notifier"
+        strip_components: 0
+
+    - name: Install and start application
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: 87.242.119.108
+        username: nikiteo
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          set -e
+
+          cd ~/haifisch-notifier
+          echo "📦 Installing dependencies..."
+          npm install
+
+          echo "🏗️ Building project..."
+          npm run build
+
+          echo "🚀 Starting application with PM2..."
+          pm2 start ecosystem.config.cjs
+          sleep 5
+          pm2 save --force
+
+          echo "📊 PM2 status:"
+          pm2 list
+
+    # 5. УВЕДОМЛЕНИЯ
+    - name: Telegram notification
+      uses: appleboy/telegram-action@v1.0.1
+      if: always()
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        message: |
+          *${{ job.status == 'success' && '✅ DEPLOY SUCCESS' || '❌ DEPLOY FAILED' }}*
+          ==================
+          *Project*: ${{ github.repository }}
+          *Branch*: ${{ github.ref_name }}
+          *Date*: ${{ env.BUILD_DATE }}
+          *Commit*: `${{ env.COMMIT_SHA }}`
+          *Commit Message*: ${{ github.event.head_commit.message }}
+          ==================
+          [View logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+        format: markdown

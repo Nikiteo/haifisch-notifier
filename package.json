@@ -3,6 +3,7 @@
 	"type": "module",
 	"version": "1.0.0",
 	"scripts": {
+		"build": "npx nest build",
 		"start": "npx nest start --esm",
 		"start:dev": "npx nest start --watch --esm",
 		"update": "npx npm-check-updates -u && npm install",
@@ -28,6 +29,7 @@
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^4.17.0",
+		"@nestjs/cli": "^11.0.10",
 		"@types/express": "^5.0.3",
 		"@types/node": "^24.1.0",
 		"swagger-typescript-api": "13.2.7",

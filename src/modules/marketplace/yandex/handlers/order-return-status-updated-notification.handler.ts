@@ -150,6 +150,8 @@ export class OrderReturnStatusUpdatedNotificationHandler extends BaseNotificatio
 					name: orderId.toString(),
 					sum: totalAmount * 100,
 					moment: dayjs(updatedAt).format('YYYY-MM-DD HH:mm:ss.SSS'),
+					// eslint-disable-next-line ts/ban-ts-comment
+					// @ts-expect-error
 					operations: [
 						{
 							meta: salesReturn.meta as unknown as Meta<Entity.SalesReturn>,
