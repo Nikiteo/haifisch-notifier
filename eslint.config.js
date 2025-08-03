@@ -11,4 +11,5 @@ export default antfu({
 		'@typescript-eslint/no-unsafe-assignment': 'off',
 		'@typescript-eslint/no-unsafe-call': 'off',
 	},
+	ignores: ['src/scripts/**', 'src/modules/marketplace/yandex/types/**'],
 })

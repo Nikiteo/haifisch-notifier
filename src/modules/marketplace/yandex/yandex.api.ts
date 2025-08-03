@@ -1,5 +1,3 @@
-import type { AxiosResponse } from 'axios'
-
 import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
@@ -29,15 +27,35 @@ export class YandexApiService {
 		return token
 	}
 
-	/**
-	 * Выполняет GET-запрос к Яндекс.Маркет API и возвращает тело ответа.
-	 */
+	/** Выполняет GET-запрос и возвращает тело ответа. */
 	async get<T>(endpoint: string, store: 'Haifisch' | 'Top'): Promise<T> {
 		const url = `${this.baseUrl}/${endpoint}`
 		const token = this.getToken(store)
 
-		const response: AxiosResponse<T> = await firstValueFrom(
+		const response = await firstValueFrom(
 			this.http.get<T>(url, {
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'Api-Key': token,
+				},
+			}),
+		)
+
+		return response.data
+	}
+
+	/** Выполняет POST-запрос и возвращает тело ответа. */
+	async post<ResponseType, RequestType>(
+		endpoint: string,
+		store: 'Haifisch' | 'Top',
+		data: RequestType,
+	): Promise<ResponseType> {
+		const url = `${this.baseUrl}/${endpoint}`
+		const token = this.getToken(store)
+
+		const response = await firstValueFrom(
+			this.http.post<ResponseType>(url, data, {
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json',

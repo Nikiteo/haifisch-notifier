@@ -1,25 +1,25 @@
 import { IsDateString, IsEnum, IsInt } from 'class-validator'
-import { NotificationType, OrderStatusType, OrderSubstatusType } from '../types/yandex-types'
+import { NotificationType, OrderStatusType, OrderSubstatusType } from '../types/yandex-types.js'
 
 /**
  * DTO для уведомления об изменении статуса заказа.
  */
 export class OrderStatusUpdatedNotificationDTO {
 	@IsEnum(NotificationType)
-	notificationType?: NotificationType.ORDER_STATUS_UPDATED
+	notificationType!: NotificationType.ORDER_STATUS_UPDATED
 
 	@IsInt()
-	orderId?: number
+	orderId!: number
 
 	@IsInt()
-	campaignId?: number
+	campaignId!: number
 
 	@IsEnum(OrderStatusType)
-	status?: OrderStatusType
+	status!: OrderStatusType
 
 	@IsEnum(OrderSubstatusType)
-	substatus?: OrderSubstatusType
+	substatus!: OrderSubstatusType
 
 	@IsDateString()
-	updatedAt?: string
+	updatedAt!: string
 }

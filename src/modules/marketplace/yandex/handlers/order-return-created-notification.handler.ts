@@ -1,9 +1,15 @@
-import { MoyskladService } from '@modules/moysklad/moysklad.service'
 import { Injectable } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { OrderReturnCreatedNotificationDTO } from '../dto'
-import { YandexApiService } from '../yandex.api'
-import { BaseNotificationHandler } from './base-notification.handler'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat.js'
+
+import { AppLogger } from '../../../../shared/logger.service.js'
+import { MoyskladService } from '../../../moysklad/moysklad.service.js'
+import { states } from '../database.js'
+import { OrderReturnCreatedNotificationDTO } from '../dto/index.js'
+import { YandexApiService } from '../yandex.api.js'
+import { BaseNotificationHandler } from './base-notification.handler.js'
+
+dayjs.extend(customParseFormat)
 
 /**
  * Обработчик для уведомлений о создании нового невыкупа или возврата.
@@ -20,18 +26,33 @@ export class OrderReturnCreatedNotificationHandler extends BaseNotificationHandl
 	 */
 	async handle(notification: OrderReturnCreatedNotificationDTO): Promise<void> {
 		try {
-			this.logger.log(`Создание невыкупа или возврата ${notification.orderId} в МойСклад`)
-			// const order = await this.moyskladService.getClient().POST('entity/customerorder', {
-			// 	name: `Order ${notification.orderId}`,
-			// 	organization: { meta: { href: 'https://api.moysklad.ru/api/remap/1.2/entity/organization/YOUR_ORG_ID' } },
-			// 	agent: { meta: { href: 'https://api.moysklad.ru/api/remap/1.2/entity/counterparty/YOUR_COUNTERPARTY_ID' } },
-			// 	positions: notification.items.map(item => ({
-			// 		quantity: item.count,
-			// 		assortment: { meta: { href: `https://api.moysklad.ru/api/remap/1.2/entity/product/${item.offerId}` } },
-			// 	})),
-			// 	moment: notification.createdAt,
-			// })
-			// this.logger.log(`Заказ ${notification.orderId} успешно создан в МойСклад: ${JSON.stringify(order)}`)
+			const ms = this.moyskladService.getClient()
+			const { orderId, campaignId } = notification
+
+			const store = campaignId === 23726642 ? 'Haifisch' : 'Top'
+
+			this.logger.log(`[${store}]: Создание невыкупа или возврата ${notification.orderId} в МС...`)
+
+			const { rows } = await ms.customerOrder.list({
+				filter: {
+					name: orderId.toString(),
+				},
+			})
+
+			const [orderInMs] = rows
+
+			if (!orderInMs.id) {
+				this.logger.error(`[${store}]: Заказ ${orderId} не найден в МС`)
+				return
+			}
+
+			this.logger.log(`[${store}]: Заказ ${orderId} найден в МС id=${orderInMs.id}`)
+
+			await ms.customerOrder.update(orderInMs.id, {
+				state: states.RETURNED,
+			})
+
+			this.logger.log(`[${store}]: Статус заказа ${orderId} успешно обновлен в МС...`)
 		}
 		catch (error) {
 			this.handleError(`Ошибка создания невыкупа или возврата ${notification.orderId}`, error)

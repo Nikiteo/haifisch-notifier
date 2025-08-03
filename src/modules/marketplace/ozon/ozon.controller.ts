@@ -1,6 +1,6 @@
 import { Controller, Post } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { OzonService } from './ozon.service'
+import { AppLogger } from '../../../shared/logger.service.js'
+import { OzonService } from './ozon.service.js'
 
 @Controller()
 export class OzonController {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { OzonController } from './ozon.controller'
-import { OzonService } from './ozon.service'
+import { AppLogger } from '../../../shared/logger.service.js'
+import { OzonController } from './ozon.controller.js'
+import { OzonService } from './ozon.service.js'
 
 @Module({
 	controllers: [OzonController],

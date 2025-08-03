@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { OperationType, TbankNotification } from './types/tbank-types'
+import { OperationType, TbankNotification } from './types/tbank-types.js'
 
 @Injectable()
 export class TbankOperationsService {

@@ -1,15 +1,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
-
 import process from 'node:process'
+import { fileURLToPath } from 'node:url'
 
-import {
-	Injectable,
-	LoggerService,
-} from '@nestjs/common'
+import { Injectable, LoggerService } from '@nestjs/common'
 import winston from 'winston'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 const logsDir = path.resolve(__dirname, '..', 'logs')
+if (!fs.existsSync(logsDir)) {
+	fs.mkdirSync(logsDir, { recursive: true })
+}
 
 if (!fs.existsSync(logsDir)) {
 	fs.mkdirSync(logsDir, { recursive: true })

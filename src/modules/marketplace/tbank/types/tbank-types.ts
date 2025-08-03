@@ -1,5 +1,7 @@
 /** THIS FILE WAS GENERATED */
 
+/* eslint-disable @typescript-eslint/array-type, @typescript-eslint/ban-types, @typescript-eslint/no-namespace, @typescript-eslint/indent, @typescript-eslint/no-invalid-void-type */
+
 export interface PaymentRegistrySubmitResultResponse {
 	/**
 	 * Идентификатор платежного реестра.
@@ -846,10 +848,10 @@ export interface SelfEmployedReceipts {
 	receipts?: SelfEmployedReceipt[]
 }
 
-export type AddCardRequestResponse =
-	| FailedAddCardRequestResponse
-	| PendingAddCardRequestResponse
-	| ReadyAddCardRequestResponse
+export type AddCardRequestResponse
+	= | FailedAddCardRequestResponse
+		| PendingAddCardRequestResponse
+		| ReadyAddCardRequestResponse
 
 export interface SelfEmployedCreatePaymentRegistryResultResponse {
 	/**
@@ -1052,10 +1054,10 @@ export interface BeneficiaryScoringError {
 	description: string
 }
 
-export type ReceiptResponse =
-	| FromForeignAgencyReceiptResponse
-	| FromIndividualReceiptResponse
-	| FromLegalEntityReceiptResponse
+export type ReceiptResponse
+	= | FromForeignAgencyReceiptResponse
+		| FromIndividualReceiptResponse
+		| FromLegalEntityReceiptResponse
 
 export interface SelfEmployedPayPaymentRegistryResultRequest {
 	/**
@@ -1126,7 +1128,10 @@ export interface CancelReceiptRequest {
 	reason: CancelReceiptRequestReasonEnum
 }
 
-export type ReceiptOperation = ReceiptFailedOperation | ReceiptInProgressOperation | ReceiptSuccessOperation
+export type ReceiptOperation
+	= | ReceiptFailedOperation
+		| ReceiptInProgressOperation
+		| ReceiptSuccessOperation
 
 export interface Ready {
 	/**
@@ -2758,7 +2763,10 @@ export interface CobrandAccount {
 	loyaltyId?: string
 }
 
-export type BankDetailsRequest = CardBankDetailsRequest | RkcBankDetailsRequest | SbpBankDetailsRequest
+export type BankDetailsRequest
+	= | CardBankDetailsRequest
+		| RkcBankDetailsRequest
+		| SbpBankDetailsRequest
 
 export interface PendingAddCardRequestResponse {
 	/**
@@ -2866,8 +2874,8 @@ export interface Operation {
 	type: OperationType
 }
 
-export type ReissueVirtualCardResultResponse =
-	| {
+export type ReissueVirtualCardResultResponse
+	= | {
 		/** Данные перевыпущенной карты. Присутствует в ответе, если status = READY */
 		info: ReissuedVirtualCardInfo
 		/** Статус заявки на перевыпуск виртуальной карты. status = READY - карта успешно перевыпущена, вы можете ей пользоваться */
@@ -2962,14 +2970,14 @@ export interface TaxReturnReasonResponse {
 	options?: OptionResponse[]
 }
 
-export type BeneficiaryResponse =
-	| BeneficiaryFlNonresidentResponse
-	| BeneficiaryFlResidentResponse
-	| BeneficiaryIpNonresidentResponse
-	| BeneficiaryIpResidentResponse
-	| BeneficiaryLiteContactResponse
-	| BeneficiaryUlNonresidentResponse
-	| BeneficiaryUlResidentResponse
+export type BeneficiaryResponse
+	= | BeneficiaryFlNonresidentResponse
+		| BeneficiaryFlResidentResponse
+		| BeneficiaryIpNonresidentResponse
+		| BeneficiaryIpResidentResponse
+		| BeneficiaryLiteContactResponse
+		| BeneficiaryUlNonresidentResponse
+		| BeneficiaryUlResidentResponse
 
 export interface Info {
 	/**
@@ -3262,7 +3270,10 @@ export interface InProgress {
 	status: InProgressStatusEnum1
 }
 
-export type BankDetailsResponse = CardBankDetailsResponse | RkcBankDetailsResponse | SbpBankDetailsResponse
+export type BankDetailsResponse
+	= | CardBankDetailsResponse
+		| RkcBankDetailsResponse
+		| SbpBankDetailsResponse
 
 /** Статус подписания платежного реестра. */
 export enum SubmissionStatus {
@@ -3514,19 +3525,19 @@ export interface RkcBankDetailsResponse {
 }
 
 /** Документ бенефициара: */
-export type Document2 =
-	| Contract
-	| ContractGPD
-	| DiplomaticPassport
-	| ForeignPassport
-	| ForeignPassportOfForeignCitizens
-	| MigrationCard
-	| OfficialPassport
-	| Passport
-	| Patent
-	| ResidencePermit
-	| TemporaryResidencePermit
-	| Visa
+export type Document2
+	= | Contract
+		| ContractGPD
+		| DiplomaticPassport
+		| ForeignPassport
+		| ForeignPassportOfForeignCitizens
+		| MigrationCard
+		| OfficialPassport
+		| Passport
+		| Patent
+		| ResidencePermit
+		| TemporaryResidencePermit
+		| Visa
 
 export type PaymentResponse = RegularPaymentResponse | TaxPaymentResponse
 
@@ -3821,9 +3832,9 @@ export interface AccountInfo3 {
 	 * `PaymentAgent` — счет платежного агента.
 	 * `Nominal` — номинальный счет.
 	 * `NominalIpo` — номинальный счет оператора инвестиционной платформы.
-	 * `TrustManagementSmp` — специальный счет доверительного управления.
-	 * `Cashbox` — бизнес-копилка.
-	 * `Invest` — инвестиционный счет.
+	 * * `TrustManagementSmp` — специальный счет доверительного управления.
+	 * * `Cashbox` — бизнес-копилка.
+	 * * `Invest` — инвестиционный счет.
 	 */
 	accountType: string
 	/**
@@ -4924,14 +4935,14 @@ export interface BeneficiaryUlNonresidentResponse {
 	kio?: string
 }
 
-export type BeneficiaryRequest =
-	| BeneficiaryFlNonresidentRequest
-	| BeneficiaryFlResidentRequest
-	| BeneficiaryIpNonresidentRequest
-	| BeneficiaryIpResidentRequest
-	| BeneficiaryLiteContactRequest
-	| BeneficiaryUlNonresidentRequest
-	| BeneficiaryUlResidentRequest
+export type BeneficiaryRequest
+	= | BeneficiaryFlNonresidentRequest
+		| BeneficiaryFlResidentRequest
+		| BeneficiaryIpNonresidentRequest
+		| BeneficiaryIpResidentRequest
+		| BeneficiaryLiteContactRequest
+		| BeneficiaryUlNonresidentRequest
+		| BeneficiaryUlResidentRequest
 
 export interface CreateDocument1 {
 	/** Тип документа. */
@@ -5651,10 +5662,10 @@ export enum EptArrestStatus {
 	CANCELED = 'CANCELED',
 }
 
-export type CreateReceiptRequest =
-	| CreateForeignAgencyReceiptRequest
-	| CreateIndividualReceiptRequest
-	| CreateLegalEntityReceiptRequest
+export type CreateReceiptRequest
+	= | CreateForeignAgencyReceiptRequest
+		| CreateIndividualReceiptRequest
+		| CreateLegalEntityReceiptRequest
 
 export interface PaymentError1 {
 	/**
@@ -5742,8 +5753,8 @@ export interface AccountInfo2 {
 	 * `PaymentAgent` — счет платежного агента.
 	 * `Nominal` — номинальный счет.
 	 * `NominalIpo` — номинальный счет оператора инвестиционной платформы.
-	 * `TrustManagementSmp` — специальный счет доверительного управления.
-	 * `Cashbox` — бизнес-копилка.
+	 * * `TrustManagementSmp` — специальный счет доверительного управления.
+	 * * `Cashbox` — бизнес-копилка.
 	 */
 	accountType: string
 	/**
@@ -5789,7 +5800,9 @@ export interface VirtualCardRequisitesResponse {
 	expiryDate: ExpiryDate
 }
 
-export type CreatePaymentRequest1 = CreateRegularPaymentRequest | CreateTaxPaymentRequest
+export type CreatePaymentRequest1
+	= | CreateRegularPaymentRequest
+		| CreateTaxPaymentRequest
 
 /**
  *

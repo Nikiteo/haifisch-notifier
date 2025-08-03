@@ -15,8 +15,8 @@ import {
 	OrderReturnStatusUpdatedNotificationDTO,
 	OrderStatusUpdatedNotificationDTO,
 	PingNotificationDTO,
-} from '../dto'
-import { NotificationType } from '../types/yandex-types'
+} from '../dto/index.js'
+import { NotificationType } from '../types/yandex-types.js'
 
 type NotificationDTO =
 	| PingNotificationDTO

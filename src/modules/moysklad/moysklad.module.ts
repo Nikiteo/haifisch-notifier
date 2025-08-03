@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { MoyskladService } from './moysklad.service'
+import { MoyskladService } from './moysklad.service.js'
 
 /**
  * Модуль для работы с API МойСклад.

@@ -1,5 +1,5 @@
 import { IsDateString, IsEnum } from 'class-validator'
-import { NotificationType } from '../types/yandex-types'
+import { NotificationType } from '../types/yandex-types.js'
 
 /**
  * DTO для проверочного уведомления (PING).

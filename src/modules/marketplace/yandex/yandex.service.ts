@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
+import { AppLogger } from '../../../shared/logger.service.js'
 import {
 	ChatArbitrageFinishedNotificationDTO,
 	ChatArbitrageStartedNotificationDTO,
@@ -14,9 +14,9 @@ import {
 	OrderReturnStatusUpdatedNotificationDTO,
 	OrderStatusUpdatedNotificationDTO,
 	PingNotificationDTO,
-} from './dto'
-import { NotificationHandlerFactory } from './handlers/notification-handler.factory'
-import { NotificationType } from './types/yandex-types'
+} from './dto/index.js'
+import { NotificationHandlerFactory } from './handlers/notification-handler.factory.js'
+import { NotificationType } from './types/yandex-types.js'
 
 /**
  * Сервис для обработки уведомлений от Яндекс.Маркета.

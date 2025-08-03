@@ -1,5 +1,5 @@
 import { IsDateString, IsEnum, IsInt } from 'class-validator'
-import { NotificationType } from '../types/yandex-types'
+import { NotificationType } from '../types/yandex-types.js'
 
 /**
  * DTO для уведомления о завершении спора.

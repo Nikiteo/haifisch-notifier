@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional } from 'class-validator'
-import { RefundStatusType, ReturnShipmentStatusType } from '../types/yandex-types'
+import { RefundStatusType, ReturnShipmentStatusType } from '../types/yandex-types.js'
 
 /**
  * DTO для информации об обновлении статуса невыкупа или возврата.

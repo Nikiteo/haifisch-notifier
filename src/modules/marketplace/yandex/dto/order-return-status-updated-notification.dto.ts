@@ -1,28 +1,28 @@
 import { Type } from 'class-transformer'
 import { IsDateString, IsEnum, IsInt, ValidateNested } from 'class-validator'
-import { NotificationType } from '../types/yandex-types'
-import { NotificationUpdatedReturnStatusesDTO } from './notification-updated-return-statuses.dto'
+import { NotificationType } from '../types/yandex-types.js'
+import { NotificationUpdatedReturnStatusesDTO } from './notification-updated-return-statuses.dto.js'
 
 /**
  * DTO для уведомления об изменении статуса невыкупа или возврата.
  */
 export class OrderReturnStatusUpdatedNotificationDTO {
 	@IsEnum(NotificationType)
-	notificationType?: NotificationType.ORDER_RETURN_STATUS_UPDATED
+	notificationType!: NotificationType.ORDER_RETURN_STATUS_UPDATED
 
 	@IsInt()
-	orderId?: number
+	orderId!: number
 
 	@IsInt()
-	returnId?: number
+	returnId!: number
 
 	@IsInt()
-	campaignId?: number
+	campaignId!: number
 
 	@ValidateNested()
 	@Type(() => NotificationUpdatedReturnStatusesDTO)
-	statuses?: NotificationUpdatedReturnStatusesDTO
+	statuses!: NotificationUpdatedReturnStatusesDTO
 
 	@IsDateString()
-	updatedAt?: string
+	updatedAt!: string
 }

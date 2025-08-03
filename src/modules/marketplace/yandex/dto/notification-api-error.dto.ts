@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from 'class-validator'
-import { NotificationApiErrorType } from '../types/yandex-types'
+import { NotificationApiErrorType } from '../types/yandex-types.js'
 
 /**
  * DTO для описания ошибки при обработке уведомления.

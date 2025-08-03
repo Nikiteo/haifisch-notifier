@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { TbankService } from './tbank.service'
-import { TbankNotification } from './types/tbank-types'
+import { AppLogger } from '../../../shared/logger.service.js'
+import { TbankService } from './tbank.service.js'
+import { TbankNotification } from './types/tbank-types.js'
 
 @Controller()
 export class TbankController {

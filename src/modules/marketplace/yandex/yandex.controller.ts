@@ -1,5 +1,5 @@
 import { Body, Controller, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
+import { AppLogger } from '../../../shared/logger.service.js'
 import {
 	ChatArbitrageFinishedNotificationDTO,
 	ChatArbitrageStartedNotificationDTO,
@@ -16,25 +16,25 @@ import {
 	PingNotificationDTO,
 	SendNotificationErrorResponseDTO,
 	SendNotificationResponseDTO,
-} from './dto'
-import { NotificationValidationPipe } from './pipes/notification-validation.pipe'
-import { NotificationApiErrorType, NotificationType } from './types/yandex-types'
-import { YandexService } from './yandex.service'
+} from './dto/index.js'
+import { NotificationValidationPipe } from './pipes/notification-validation.pipe.js'
+import { NotificationApiErrorType, NotificationType } from './types/yandex-types.js'
+import { YandexService } from './yandex.service.js'
 
-type NotificationDTO =
-	| PingNotificationDTO
-	| OrderCreatedNotificationDTO
-	| OrderCancelledNotificationDTO
-	| OrderCancellationRequestNotificationDTO
-	| OrderStatusUpdatedNotificationDTO
-	| OrderReturnCreatedNotificationDTO
-	| OrderReturnStatusUpdatedNotificationDTO
-	| GoodsFeedbackCreatedNotificationDTO
-	| GoodsFeedbackCommentCreatedNotificationDTO
-	| ChatCreatedNotificationDTO
-	| ChatMessageSentNotificationDTO
-	| ChatArbitrageStartedNotificationDTO
-	| ChatArbitrageFinishedNotificationDTO
+type NotificationDTO
+	= | PingNotificationDTO
+		| OrderCreatedNotificationDTO
+		| OrderCancelledNotificationDTO
+		| OrderCancellationRequestNotificationDTO
+		| OrderStatusUpdatedNotificationDTO
+		| OrderReturnCreatedNotificationDTO
+		| OrderReturnStatusUpdatedNotificationDTO
+		| GoodsFeedbackCreatedNotificationDTO
+		| GoodsFeedbackCommentCreatedNotificationDTO
+		| ChatCreatedNotificationDTO
+		| ChatMessageSentNotificationDTO
+		| ChatArbitrageStartedNotificationDTO
+		| ChatArbitrageFinishedNotificationDTO
 
 /**
  * Контроллер для обработки уведомлений от Яндекс.Маркета.
@@ -51,12 +51,10 @@ export class YandexController {
 		try {
 			this.logger.log(`Получено уведомление от Яндекса: ${JSON.stringify(body)}`)
 
-			// Запускаем обработку уведомления в фоновом режиме
 			this.processNotification(body).catch((error) => {
 				this.logger.error(`Ошибка асинхронной обработки уведомления: ${error instanceof Error ? error.message : String(error)}`)
 			})
 
-			// Возвращаем ответ сразу
 			return {
 				version: '1.0.0',
 				name: 'Haifisch',

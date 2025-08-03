@@ -1,9 +1,9 @@
-import { MoyskladService } from '@modules/moysklad/moysklad.service'
 import { Injectable } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { PingNotificationDTO } from '../dto'
-import { YandexApiService } from '../yandex.api'
-import { BaseNotificationHandler } from './base-notification.handler'
+import { AppLogger } from '../../../../shared/logger.service.js'
+import { MoyskladService } from '../../../moysklad/moysklad.service.js'
+import { PingNotificationDTO } from '../dto/index.js'
+import { YandexApiService } from '../yandex.api.js'
+import { BaseNotificationHandler } from './base-notification.handler.js'
 
 /**
  * Обработчик для PING-уведомлений.

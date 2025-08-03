@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
-import { TbankOperationsService } from './tbank-operations.service'
-import { TbankController } from './tbank.controller'
-import { TbankService } from './tbank.service'
+import { AppLogger } from '../../../shared/logger.service.js'
+import { TbankOperationsService } from './tbank-operations.service.js'
+import { TbankController } from './tbank.controller.js'
+import { TbankService } from './tbank.service.js'
 
 @Module({
 	controllers: [TbankController],

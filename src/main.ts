@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
-import { AppLogger } from './shared/logger.service'
+import { AppModule } from './app.module.js'
+import { AppLogger } from './shared/logger.service.js'
 
 async function bootstrap() {
 	const appLogger = new AppLogger()
@@ -9,8 +9,8 @@ async function bootstrap() {
 		logger: appLogger,
 	})
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true, forbidNonWhitelisted: true }))
-	await app.listen(3001)
+	await app.listen(4000)
 
-	appLogger.log(`App running on http://localhost:3001`)
+	appLogger.log(`App running on http://localhost:4000`)
 }
 void bootstrap()

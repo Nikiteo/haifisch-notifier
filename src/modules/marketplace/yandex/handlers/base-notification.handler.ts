@@ -1,6 +1,7 @@
-import { MoyskladService } from '@modules/moysklad/moysklad.service'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
-import { AppLogger } from '@shared/logger.service'
+import { AppLogger } from '../../../../shared/logger.service.js'
+import { GigaChatService } from '../../../gigachat/gigachat.service.js'
+import { MoyskladService } from '../../../moysklad/moysklad.service.js'
 import {
 	ChatArbitrageFinishedNotificationDTO,
 	ChatArbitrageStartedNotificationDTO,
@@ -15,23 +16,23 @@ import {
 	OrderReturnStatusUpdatedNotificationDTO,
 	OrderStatusUpdatedNotificationDTO,
 	PingNotificationDTO,
-} from '../dto'
-import { YandexApiService } from '../yandex.api'
+} from '../dto/index.js'
+import { YandexApiService } from '../yandex.api.js'
 
-type NotificationDTO =
-	| PingNotificationDTO
-	| OrderCreatedNotificationDTO
-	| OrderCancelledNotificationDTO
-	| OrderCancellationRequestNotificationDTO
-	| OrderStatusUpdatedNotificationDTO
-	| OrderReturnCreatedNotificationDTO
-	| OrderReturnStatusUpdatedNotificationDTO
-	| GoodsFeedbackCreatedNotificationDTO
-	| GoodsFeedbackCommentCreatedNotificationDTO
-	| ChatCreatedNotificationDTO
-	| ChatMessageSentNotificationDTO
-	| ChatArbitrageStartedNotificationDTO
-	| ChatArbitrageFinishedNotificationDTO
+type NotificationDTO
+	= | PingNotificationDTO
+		| OrderCreatedNotificationDTO
+		| OrderCancelledNotificationDTO
+		| OrderCancellationRequestNotificationDTO
+		| OrderStatusUpdatedNotificationDTO
+		| OrderReturnCreatedNotificationDTO
+		| OrderReturnStatusUpdatedNotificationDTO
+		| GoodsFeedbackCreatedNotificationDTO
+		| GoodsFeedbackCommentCreatedNotificationDTO
+		| ChatCreatedNotificationDTO
+		| ChatMessageSentNotificationDTO
+		| ChatArbitrageStartedNotificationDTO
+		| ChatArbitrageFinishedNotificationDTO
 
 /**
  * Базовый абстрактный класс для обработчиков уведомлений.
@@ -42,6 +43,7 @@ export abstract class BaseNotificationHandler<T extends NotificationDTO = Notifi
 		protected readonly logger: AppLogger,
 		protected readonly moyskladService: MoyskladService,
 		protected readonly api: YandexApiService,
+		protected readonly giga?: GigaChatService,
 	) {}
 
 	/**

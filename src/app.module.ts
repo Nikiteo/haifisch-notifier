@@ -1,8 +1,9 @@
-import { MarketplaceModule } from '@modules/marketplace/marketplace.module'
-import { MoyskladModule } from '@modules/moysklad/moysklad.module'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { AppLogger } from '@shared/logger.service'
+import { GigaChatModule } from './modules/gigachat/gigachat.module.js'
+import { MarketplaceModule } from './modules/marketplace/marketplace.module.js'
+import { MoyskladModule } from './modules/moysklad/moysklad.module.js'
+import { AppLogger } from './shared/logger.service.js'
 
 @Module({
 	imports: [
@@ -12,6 +13,7 @@ import { AppLogger } from '@shared/logger.service'
 		}),
 		MarketplaceModule,
 		MoyskladModule,
+		GigaChatModule,
 	],
 	providers: [AppLogger],
 })
