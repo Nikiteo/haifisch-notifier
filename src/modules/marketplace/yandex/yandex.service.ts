@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { AppLogger } from '../../../shared/logger.service.js'
+import { NotificationQueueService } from '../notification-queue/notification-queue.service.js'
 import {
 	ChatArbitrageFinishedNotificationDTO,
 	ChatArbitrageStartedNotificationDTO,
@@ -26,6 +27,7 @@ export class YandexService {
 	constructor(
 		private readonly logger: AppLogger,
 		private readonly handlerFactory: NotificationHandlerFactory,
+		@Inject('YANDEX_QUEUE') private readonly queue: NotificationQueueService,
 	) {}
 
 	/**
@@ -65,7 +67,9 @@ export class YandexService {
 	 * @param notification DTO для уведомления об обновлении статуса заказа.
 	 */
 	async handleOrderStatusUpdated(notification: OrderStatusUpdatedNotificationDTO): Promise<void> {
-		await this.handlerFactory.getHandler(NotificationType.ORDER_STATUS_UPDATED).handle(notification)
+		await this.queue.add(async () => {
+			await this.handlerFactory.getHandler(NotificationType.ORDER_STATUS_UPDATED).handle(notification)
+		})
 	}
 
 	/**

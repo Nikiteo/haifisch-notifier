@@ -32,6 +32,10 @@ export class OrderStatusUpdatedNotificationHandler extends BaseNotificationHandl
 			const ms = this.moyskladService.getClient()
 			const { orderId, campaignId, status, substatus, updatedAt } = notification
 
+			if (substatus === OrderSubstatusType.STARTED && status === OrderStatusType.PROCESSING) {
+				return
+			}
+
 			const store = campaignId === 23726642 ? 'Haifisch' : 'Top'
 
 			this.logger.log(`[${store}]: Изменение статуса заказа ${orderId} в МС...`)

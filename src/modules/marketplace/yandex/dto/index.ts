@@ -18,4 +18,3 @@ export * from './order-status-updated-notification.dto.js'
 export * from './ping-notification.dto.js'
 export * from './send-notification-error-response.dto.js'
 export * from './send-notification-response.dto.js'
-

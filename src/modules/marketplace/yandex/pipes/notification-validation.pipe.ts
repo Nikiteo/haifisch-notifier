@@ -18,20 +18,20 @@ import {
 } from '../dto/index.js'
 import { NotificationType } from '../types/yandex-types.js'
 
-type NotificationDTO =
-	| PingNotificationDTO
-	| OrderCreatedNotificationDTO
-	| OrderCancelledNotificationDTO
-	| OrderCancellationRequestNotificationDTO
-	| OrderStatusUpdatedNotificationDTO
-	| OrderReturnCreatedNotificationDTO
-	| OrderReturnStatusUpdatedNotificationDTO
-	| GoodsFeedbackCreatedNotificationDTO
-	| GoodsFeedbackCommentCreatedNotificationDTO
-	| ChatCreatedNotificationDTO
-	| ChatMessageSentNotificationDTO
-	| ChatArbitrageStartedNotificationDTO
-	| ChatArbitrageFinishedNotificationDTO
+type NotificationDTO
+	= | PingNotificationDTO
+		| OrderCreatedNotificationDTO
+		| OrderCancelledNotificationDTO
+		| OrderCancellationRequestNotificationDTO
+		| OrderStatusUpdatedNotificationDTO
+		| OrderReturnCreatedNotificationDTO
+		| OrderReturnStatusUpdatedNotificationDTO
+		| GoodsFeedbackCreatedNotificationDTO
+		| GoodsFeedbackCommentCreatedNotificationDTO
+		| ChatCreatedNotificationDTO
+		| ChatMessageSentNotificationDTO
+		| ChatArbitrageStartedNotificationDTO
+		| ChatArbitrageFinishedNotificationDTO
 
 const notificationTypeToDtoMap: Record<NotificationType, new () => NotificationDTO> = {
 	[NotificationType.PING]: PingNotificationDTO,

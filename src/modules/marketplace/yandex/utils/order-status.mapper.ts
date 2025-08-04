@@ -1,9 +1,17 @@
+import type { Entity, Meta } from 'moysklad-ts'
 import type { OrderStatusType, OrderSubstatusType } from '../types/api.js'
-import type { OrderSubstatusType as notificationSubstatus } from '../types/yandex-types.js'
 
 import { states } from '../database.js'
+import type { OrderSubstatusType as notificationSubstatus } from '../types/yandex-types.js'
 
-function prepareSubstatuses(substatus?: OrderSubstatusType | notificationSubstatus) {
+function prepareSubstatuses(substatus?: OrderSubstatusType | notificationSubstatus): Meta<Entity.State> & {
+	id: string
+	accountId: string
+	name: string
+	color: number
+	stateType: string
+	entityType: string
+} {
 	if (substatus === 'READY_TO_SHIP') {
 		return states.READY_TO_SHIP
 	}
@@ -37,6 +45,8 @@ export function prepareStatusesForCustomerOrders(status: OrderStatusType, substa
 		case 'RETURNED':
 			return states.RETURNED
 		case 'UNKNOWN':
+			return states.UNKNOWN
+		case undefined:
 			return states.UNKNOWN
 	}
 }
