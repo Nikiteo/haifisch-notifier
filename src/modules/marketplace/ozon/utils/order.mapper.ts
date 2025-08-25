@@ -13,7 +13,7 @@ export function orderMapper(order: PostingFbs, createDate: string, products: Pro
 	return {
 		name: order.posting_number?.toString(),
 		moment: dayjs(createDate === '' ? order.in_process_at : createDate).format('YYYY-MM-DD HH:mm:ss.SSS'),
-		deliveryPlannedMoment: dayjs(dayjs(order.tariffication.next_tariff_starts_at) ?? createDate).format('YYYY-MM-DD HH:mm:ss.SSS'),
+		deliveryPlannedMoment: dayjs(order.shipment_date).format('YYYY-MM-DD HH:mm:ss.SSS'),
 		project: fbosOzonProject,
 		attributes: prepareCustomerOrdersAttributes(order, products),
 		state: states.PROCESSING,

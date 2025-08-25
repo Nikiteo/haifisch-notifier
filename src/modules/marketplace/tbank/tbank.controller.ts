@@ -1,7 +1,7 @@
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
 import { AppLogger } from '../../../shared/logger.service.js'
+import { TbankNotificationDTO } from './dto/tbank-notification.dto.js'
 import { TbankService } from './tbank.service.js'
-import { TbankNotification } from './types/tbank-types.js'
 
 @Controller()
 export class TbankController {
@@ -9,7 +9,7 @@ export class TbankController {
 	}
 
 	@Post('operations')
-	async handleOperation(@Body() body: TbankNotification) {
+	async handleOperation(@Body() body: TbankNotificationDTO) {
 		try {
 			this.logger.log(`Получена операция от TBank: ${JSON.stringify(body)}`)
 			await this.tbankService.handleOperation(body)
