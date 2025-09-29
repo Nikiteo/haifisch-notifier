@@ -1,4 +1,4 @@
-import type { Entity } from 'moysklad-ts'
+import type { Attribute, DateTime, DocumentRate, Entity, Idable, ListMeta, Meta, TaxSystem } from 'moysklad-ts'
 import { MediaType } from 'moysklad-ts'
 
 export const agent = {
@@ -7,6 +7,15 @@ export const agent = {
 		metadataHref:
 			'https://api.moysklad.ru/api/remap/1.2/entity/counterparty/metadata',
 		type: 'counterparty' as Entity.Counterparty,
+		mediaType: MediaType.Json,
+	},
+}
+
+export const currentStore = {
+	meta: {
+		href: 'https://api.moysklad.ru/api/remap/1.2/entity/store/a8306907-9450-11ee-0a80-109f00177296',
+		metadataHref: 'https://api.moysklad.ru/api/remap/1.2/entity/store/metadata',
+		type: 'store' as Entity.Store,
 		mediaType: MediaType.Json,
 	},
 }
@@ -326,3 +335,166 @@ export const sourceStore = {
 			'https://online.moysklad.ru/app/#warehouse/edit?id=a8306907-9450-11ee-0a80-109f00177296',
 	},
 }
+
+export declare interface ProcessingOrder extends Idable, Meta<Entity.ProcessingOrder> {
+	readonly accountId: string
+	agent: Meta<Entity.Counterparty>
+	agentAccount?: Meta<Entity.Account>
+	applicable: boolean
+	attributes?: Attribute[]
+	code?: string
+	contract?: Meta<Entity.Contract>
+	readonly created: DateTime
+	readonly deleted?: DateTime
+	deliveryPlannedMoment?: DateTime
+	description?: string
+	externalCode: string
+	files: unknown[]
+	group: Meta<Entity.Group>
+	readonly invoicedSum: number
+	moment: DateTime
+	name: string
+	organization: Meta<Entity.Organization>
+	organizationAccount?: Meta<Entity.Account>
+	owner?: Meta<Entity.Employee>
+	readonly payedSum: number
+	positions: ListMeta<Entity.ProcessingOrderPosition>
+	readonly printed: boolean
+	project?: Meta<Entity.Project>
+	readonly published: boolean
+	rate: DocumentRate
+	readonly reservedSum: number
+	salesChannel?: Meta<Entity.SalesChannel>
+	shared: boolean
+	shipmentAddress?: string
+	shipmentAddressFull?: {
+		addInfo?: string
+		apartment?: string
+		city?: string
+		comment?: string
+		country?: Meta<Entity.Country>
+		house?: string
+		postalCode?: string
+		region?: Meta<Entity.Region>
+		street?: string
+	}
+	readonly shippedSum: number
+	state?: Meta<Entity.State>
+	store?: Meta<Entity.Store>
+	readonly sum: number
+	syncId?: string
+	taxSystem?: TaxSystem
+	readonly updated: DateTime
+	vatEnabled: boolean
+	vatIncluded: boolean
+	readonly vatSum: number
+	purchaseOrders?: unknown
+	demands?: Meta<Entity.Demand>[]
+	payments?: unknown
+	invoicesOut?: unknown
+	moves?: unknown
+	prepayments?: unknown
+}
+
+export declare interface Processing extends Idable, Meta<Entity.Processing> {
+	readonly accountId: string
+	agent: Meta<Entity.Counterparty>
+	agentAccount?: Meta<Entity.Account>
+	applicable: boolean
+	attributes?: Attribute[]
+	code?: string
+	contract?: Meta<Entity.Contract>
+	readonly created: DateTime
+	readonly deleted?: DateTime
+	deliveryPlannedMoment?: DateTime
+	description?: string
+	externalCode: string
+	files: unknown[]
+	group: Meta<Entity.Group>
+	readonly invoicedSum: number
+	moment: DateTime
+	name: string
+	organization: Meta<Entity.Organization>
+	organizationAccount?: Meta<Entity.Account>
+	owner?: Meta<Entity.Employee>
+	readonly payedSum: number
+	positions: ListMeta<Entity.ProcessingOrderPosition>
+	readonly printed: boolean
+	project?: Meta<Entity.Project>
+	readonly published: boolean
+	rate: DocumentRate
+	readonly reservedSum: number
+	salesChannel?: Meta<Entity.SalesChannel>
+	shared: boolean
+	shipmentAddress?: string
+	shipmentAddressFull?: {
+		addInfo?: string
+		apartment?: string
+		city?: string
+		comment?: string
+		country?: Meta<Entity.Country>
+		house?: string
+		postalCode?: string
+		region?: Meta<Entity.Region>
+		street?: string
+	}
+	readonly shippedSum: number
+	state?: Meta<Entity.State>
+	store?: Meta<Entity.Store>
+	readonly sum: number
+	syncId?: string
+	taxSystem?: TaxSystem
+	readonly updated: DateTime
+	vatEnabled: boolean
+	vatIncluded: boolean
+	readonly vatSum: number
+	purchaseOrders?: unknown
+	demands?: Meta<Entity.Demand>[]
+	payments?: unknown
+	invoicesOut?: unknown
+	moves?: unknown
+	prepayments?: unknown
+}
+
+export const commissionTypes = [
+	{
+		id: 'ee32b906-95a7-11ee-0a80-107d000a1171',
+		name: 'Размещение товаров на витрине',
+		type: 'FEE',
+	},
+	{
+		id: 'ee32bc6d-95a7-11ee-0a80-107d000a1173',
+		name: 'Приём платежа покупателя',
+		type: 'AGENCY',
+	},
+	{
+		id: 'f719cd6f-95ad-11ee-0a80-0179000b864b',
+		name: 'Перевод платежа покупателя',
+		type: 'PAYMENT_TRANSFER',
+	},
+	{
+		id: 'ee32bb61-95a7-11ee-0a80-107d000a1172',
+		name: 'Участие в программе лояльности',
+		type: 'LOYALTY_PARTICIPATION_FEE',
+	},
+	{
+		id: 'ee32bd45-95a7-11ee-0a80-107d000a1174',
+		name: 'Буст продаж',
+		type: 'AUCTION_PROMOTION',
+	},
+	{
+		id: 'ee32c117-95a7-11ee-0a80-107d000a1175',
+		name: 'Доставка покупателю',
+		type: 'DELIVERY_TO_CUSTOMER',
+	},
+	{
+		id: '4136c718-95a8-11ee-0a80-0834000a4aba',
+		name: 'Обработка заказа FBS',
+		type: 'SORTING',
+	},
+	{
+		id: '66dd48c7-95a8-11ee-0a80-0e9e0009fc78',
+		name: 'Хранение невыкупов и возвратов',
+		type: 'RETURNED_ORDERS_STORAGE',
+	},
+]

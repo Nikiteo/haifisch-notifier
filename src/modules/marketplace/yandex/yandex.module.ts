@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AppLogger } from '../../../shared/logger.service.js'
 import { GigaChatModule } from '../../gigachat/gigachat.module.js'
 import { MoyskladModule } from '../../moysklad/moysklad.module.js'
-import { BotClientModule } from '../../telegram/telegram.module.js'
+import { TelegramService } from '../../telegram/telegram.service.js'
 import { NotificationQueuesModule } from '../notification-queue/notification-queue.module.js'
 import { ChatArbitrageFinishedNotificationHandler } from './handlers/chat-arbitrage-finished-notification.handler.js'
 import { ChatArbitrageStartedNotificationHandler } from './handlers/chat-arbitrage-started-notification.handler.js'
@@ -26,9 +26,11 @@ import { YandexController } from './yandex.controller.js'
 import { YandexService } from './yandex.service.js'
 
 @Module({
-	imports: [HttpModule, ConfigModule, MoyskladModule, GigaChatModule, NotificationQueuesModule, BotClientModule],
+	imports: [HttpModule, ConfigModule, MoyskladModule, GigaChatModule, NotificationQueuesModule],
 	controllers: [YandexController],
+	exports: [YandexApiService],
 	providers: [
+		TelegramService,
 		YandexService,
 		YandexApiService,
 		NotificationHandlerFactory,

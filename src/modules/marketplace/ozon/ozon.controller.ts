@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
 import { AppLogger } from '../../../shared/logger.service.js'
-import { BotClientService } from '../../telegram/telegram.service.js'
+import { TelegramService } from '../../telegram/telegram.service.js'
 import { NewPostingNotificationDTO } from './dto/new-posting-notification.dto.js'
 import { PingNotificationDTO } from './dto/ping-notification.dto.js'
 import { PostingCancelledNotificationDTO } from './dto/posting-cancelled-notification.dto.js'
@@ -22,7 +22,7 @@ type NotificationDTO
  */
 @Controller()
 export class OzonController {
-	constructor(private readonly ozonService: OzonService, private readonly logger: AppLogger, private readonly telegram: BotClientService) {
+	constructor(private readonly ozonService: OzonService, private readonly logger: AppLogger, private readonly bot: TelegramService) {
 	}
 
 	@Post('')
@@ -33,7 +33,7 @@ export class OzonController {
 	): Promise<SendNotificationResponseDTO | SendNotificationErrorResponseDTO> {
 		try {
 			this.logger.log(`Получено уведомление от Ozon: ${JSON.stringify(body)}`)
-			await this.telegram.sendTelegramMessage(838975962, `Получено уведомление от Ozon: \`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\``)
+			await this.bot.sendMessage(838975962, `Получено уведомление от Ozon: \`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\``)
 
 			this.processNotification(body).catch((error) => {
 				this.logger.error(`Ошибка асинхронной обработки уведомления: ${error instanceof Error ? error.message : String(error)}`)

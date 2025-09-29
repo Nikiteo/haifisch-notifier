@@ -5,7 +5,7 @@ import { Entity, Meta, UpdateMeta } from 'moysklad-ts'
 
 import { AppLogger } from '../../../../shared/logger.service.js'
 import { MoyskladService } from '../../../moysklad/moysklad.service.js'
-import { sourceStore, states } from '../database.js'
+import { fbsStore, states } from '../database.js'
 import { OrderReturnStatusUpdatedNotificationDTO } from '../dto/index.js'
 import { GetOrdersStatsRequest, GetOrdersStatsResponse, GetReturnResponse, ReturnShipmentStatusType } from '../types/api.js'
 import { YandexApiService } from '../yandex.api.js'
@@ -92,7 +92,7 @@ export class OrderReturnStatusUpdatedNotificationHandler extends BaseNotificatio
 					moment: dayjs(updatedAt).format('YYYY-MM-DD HH:mm:ss.SSS'),
 					name: demandInMs.name,
 					description: result.returnType === 'RETURN' ? 'Возврат' : 'Невыкуп',
-					store: sourceStore as UpdateMeta<Entity.Store>,
+					store: fbsStore as UpdateMeta<Entity.Store>,
 				})
 
 				this.logger.log(`[${store}]: Возврат покупателя для заказа ${orderId} создан в МС: id=${salesReturn.id}`)

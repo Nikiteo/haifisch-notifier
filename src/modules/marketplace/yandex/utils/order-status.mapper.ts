@@ -1,8 +1,8 @@
 import type { Entity, Meta } from 'moysklad-ts'
 import type { OrderStatusType, OrderSubstatusType } from '../types/api.js'
 
-import { states } from '../database.js'
 import type { OrderSubstatusType as notificationSubstatus } from '../types/yandex-types.js'
+import { states } from '../database.js'
 
 function prepareSubstatuses(substatus?: OrderSubstatusType | notificationSubstatus): Meta<Entity.State> & {
 	id: string

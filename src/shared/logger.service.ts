@@ -90,7 +90,7 @@ export class AppLogger implements LoggerService {
 		this.logger.warn(message)
 	}
 
-	debug?(message: string) {
+	debug(message: string) {
 		this.logger.debug(message)
 	}
 

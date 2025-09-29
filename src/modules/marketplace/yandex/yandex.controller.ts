@@ -1,6 +1,6 @@
 import { Body, Controller, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
 import { AppLogger } from '../../../shared/logger.service.js'
-import { BotClientService } from '../../telegram/telegram.service.js'
+import { TelegramService } from '../../telegram/telegram.service.js'
 import {
 	ChatArbitrageFinishedNotificationDTO,
 	ChatArbitrageStartedNotificationDTO,
@@ -42,7 +42,7 @@ type NotificationDTO
  */
 @Controller()
 export class YandexController {
-	constructor(private readonly yandexService: YandexService, private readonly logger: AppLogger, private readonly telegram: BotClientService) {}
+	constructor(private readonly yandexService: YandexService, private readonly logger: AppLogger, private readonly bot: TelegramService) {}
 
 	@Post('notification')
 	@UsePipes(NotificationValidationPipe)
@@ -51,7 +51,7 @@ export class YandexController {
 	): Promise<SendNotificationResponseDTO | SendNotificationErrorResponseDTO> {
 		try {
 			this.logger.log(`Получено уведомление от Яндекса: ${JSON.stringify(body)}`)
-			await this.telegram.sendTelegramMessage(838975962, `Получено уведомление от Яндекса: \`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\``)
+			await this.bot.sendMessage(838975962, `Получено уведомление от Яндекса: \`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\``)
 
 			this.processNotification(body).catch((error) => {
 				this.logger.error(`Ошибка асинхронной обработки уведомления: ${error instanceof Error ? error.message : String(error)}`)

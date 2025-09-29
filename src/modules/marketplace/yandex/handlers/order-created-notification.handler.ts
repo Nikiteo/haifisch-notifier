@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { AppLogger } from '../../../../shared/logger.service.js'
 import { MoyskladService } from '../../../moysklad/moysklad.service.js'
+// import { currentStore, fbsStore, organization, Processing, ProcessingOrder } from '../database.js'
 import { OrderCreatedNotificationDTO } from '../dto/index.js'
 import { GetOrderResponse } from '../types/api.js'
 import { orderMapper } from '../utils/order.mapper.js'
@@ -69,6 +70,91 @@ export class OrderCreatedNotificationHandler extends BaseNotificationHandler {
 			const createdOrder = await ms.customerOrder.create(payload)
 
 			this.logger.log(`[${store}]: Создан заказ в МС: id=${createdOrder.id}`)
+
+			// for (const item of order.items) {
+			// 	const product = boughtProducts.find(p => p.article === item.offerId)
+
+			// 	if (!product) {
+			// 		this.logger.warn(`[${store}]: Товар ${item.offerId} не найден в МС`)
+			// 		continue
+			// 	}
+
+			// 	// Получаем остатки по товару
+			// 	const stockReport = await ms.report.stock.byStore({
+			// 		filter: {
+			// 			product: product.meta.href,
+			// 			store: payload.store?.meta.href,
+			// 		},
+			// 	})
+
+			// 	const stockRow = stockReport.rows[0].stockByStore[0]
+			// 	const available = stockRow?.stock || 0
+
+			// 	this.logger.log(`[${store}]: Остаток по товару ${product.name} = ${available}, заказано = ${item.count}`)
+
+			// 	// Если остаток меньше заказанного количества → создаём заказ на производство
+			// 	if (available < item.count) {
+			// 		const needToProduce = item.count - available
+
+			// 		this.logger.warn(`[${store}]: Недостаточно товара ${product.name}. Нужно произвести: ${needToProduce}`)
+
+			// 		const processingPlan = await ms.processingPlan.list({
+			// 			filter: {
+			// 				archived: false,
+			// 			},
+			// 			search: product.article,
+			// 		})
+
+			// 		const response = await ms.client.put(ms.client.buildUrl(['entity', 'processingorder', 'new']).toString(), {
+			// 			body: {
+			// 				processingPlan: {
+			// 					meta: {
+			// 						...processingPlan.rows[0].meta,
+			// 					},
+			// 				},
+			// 			},
+			// 		})
+			// 		const template = await response.json()
+
+			// 		const responseProcessingOrder = await ms.client.post(ms.client.buildUrl(['entity', 'processingorder']).toString(), {
+			// 			body: {
+			// 				...template,
+			// 				name: `${orderId}-${product.article}`,
+			// 				organization,
+			// 				store: currentStore,
+			// 				quantity: needToProduce,
+			// 			},
+			// 		})
+
+			// 		const processingOrder: ProcessingOrder = await responseProcessingOrder.json()
+
+			// 		this.logger.log(`[${store}]: Создан заказ на производство id=${processingOrder.id}`)
+
+			// 		const responseProcessingTemplate = await ms.client.put(ms.client.buildUrl(['entity', 'processing', 'new']).toString(), {
+			// 			body: {
+			// 				processingOrder: {
+			// 					meta: {
+			// 						...processingOrder.meta,
+			// 					},
+			// 				},
+			// 			},
+			// 		})
+			// 		const templateProcessing = await responseProcessingTemplate.json()
+
+			// 		const responseProcessing = await ms.client.post(ms.client.buildUrl(['entity', 'processing']).toString(), {
+			// 			body: {
+			// 				...templateProcessing,
+			// 				name: `${orderId}-${product.article}`,
+			// 				organization,
+			// 				productsStore: fbsStore,
+			// 			},
+			// 		})
+
+			// 		const processing: Processing = await responseProcessing.json()
+
+			// 		this.logger.log(`[${store}]: Создана техоперация id=${processing.id}`)
+			// 	}
+			// }
 		}
 		catch (error) {
 			this.handleError(`Ошибка при обработке уведомления создания заказа из Яндекс Маркета с id=${notification.orderId}`, error)

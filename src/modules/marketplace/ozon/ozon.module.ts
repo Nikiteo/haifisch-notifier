@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AppLogger } from '../../../shared/logger.service.js'
 import { GigaChatModule } from '../../gigachat/gigachat.module.js'
 import { MoyskladModule } from '../../moysklad/moysklad.module.js'
-import { BotClientModule } from '../../telegram/telegram.module.js'
+import { TelegramService } from '../../telegram/telegram.service.js'
 import { NotificationQueuesModule } from '../notification-queue/notification-queue.module.js'
 import { NotificationHandlerFactory } from './handlers/notification-handler.factory.js'
 import { OrderCancelledNotificationHandler } from './handlers/order-cancelled-notification.handler.js'
@@ -16,8 +16,8 @@ import { OzonController } from './ozon.controller.js'
 import { OzonService } from './ozon.service.js'
 
 @Module({
-	imports: [HttpModule, ConfigModule, MoyskladModule, GigaChatModule, NotificationQueuesModule, BotClientModule],
+	imports: [HttpModule, ConfigModule, MoyskladModule, GigaChatModule, NotificationQueuesModule],
 	controllers: [OzonController],
-	providers: [OzonService, OzonApiService, NotificationHandlerFactory, PingNotificationHandler, OrderCancelledNotificationHandler, OrderCreatedNotificationHandler, OrderStatusUpdatedNotificationHandler, AppLogger],
+	providers: [TelegramService, OzonService, OzonApiService, NotificationHandlerFactory, PingNotificationHandler, OrderCancelledNotificationHandler, OrderCreatedNotificationHandler, OrderStatusUpdatedNotificationHandler, AppLogger],
 })
 export class OzonModule {}

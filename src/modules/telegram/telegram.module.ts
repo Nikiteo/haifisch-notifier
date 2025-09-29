@@ -1,12 +1,32 @@
-import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TelegrafModule } from 'nestjs-telegraf'
 import { AppLogger } from '../../shared/logger.service.js'
-import { BotClientService } from './telegram.service.js'
+import { YandexModule } from '../marketplace/yandex/yandex.module.js'
+import { MoyskladModule } from '../moysklad/moysklad.module.js'
+import { StartHandler } from '../telegram/handlers/start.handler.js'
+import { TelegramCommandsService } from '../telegram/telegram.commands.js'
+import { TelegramService } from '../telegram/telegram.service.js'
+import { TelegramUpdate } from '../telegram/telegram.update.js'
 
 @Module({
-	imports: [HttpModule, ConfigModule],
-	providers: [BotClientService, AppLogger],
-	exports: [BotClientService],
+	imports: [
+		ConfigModule,
+		MoyskladModule,
+		YandexModule,
+		TelegrafModule.forRootAsync({
+			imports: [ConfigModule],
+			inject: [ConfigService],
+			useFactory: (config: ConfigService) => {
+				const token = config.get<string>('TELEGRAM_BOT_TOKEN')
+				if (token === null || token === undefined) {
+					throw new Error('TELEGRAM_BOT_TOKEN is not set')
+				}
+				return { token }
+			},
+		}),
+	],
+	providers: [TelegramService, AppLogger, StartHandler, TelegramCommandsService, TelegramUpdate],
+	exports: [TelegramService],
 })
-export class BotClientModule {}
+export class TelegramModule {}
