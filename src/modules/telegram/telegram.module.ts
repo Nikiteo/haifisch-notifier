@@ -4,10 +4,11 @@ import { TelegrafModule } from 'nestjs-telegraf'
 import { AppLogger } from '../../shared/logger.service.js'
 import { YandexModule } from '../marketplace/yandex/yandex.module.js'
 import { MoyskladModule } from '../moysklad/moysklad.module.js'
+import { CheckCommissionsCommand } from '../telegram/commands/check-commissions.command.js'
+import { ChannelPostHandler } from '../telegram/handlers/channel-post.handler.js'
 import { StartHandler } from '../telegram/handlers/start.handler.js'
 import { TelegramCommandsService } from '../telegram/telegram.commands.js'
 import { TelegramService } from '../telegram/telegram.service.js'
-import { TelegramUpdate } from '../telegram/telegram.update.js'
 
 @Module({
 	imports: [
@@ -26,7 +27,7 @@ import { TelegramUpdate } from '../telegram/telegram.update.js'
 			},
 		}),
 	],
-	providers: [TelegramService, AppLogger, StartHandler, TelegramCommandsService, TelegramUpdate],
+	providers: [TelegramService, AppLogger, StartHandler, ChannelPostHandler, TelegramCommandsService, CheckCommissionsCommand],
 	exports: [TelegramService],
 })
 export class TelegramModule {}

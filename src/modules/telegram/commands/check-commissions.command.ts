@@ -3,11 +3,11 @@ import dayjs from 'dayjs'
 import { AttributeType, Demand, DemandOverheadDistribution, Entity, MediaType } from 'moysklad-ts'
 import { Command, Ctx, Update } from 'nestjs-telegraf'
 import { Context } from 'telegraf'
-import { AppLogger } from '../../shared/logger.service.js'
-import { commissionTypes, fbsHfProject, fbsTopProject, states } from '../marketplace/yandex/database.js'
-import { GetOrdersStatsRequest, GetOrdersStatsResponse, OrdersStatsOrderDTO } from '../marketplace/yandex/types/api.js'
-import { YandexApiService } from '../marketplace/yandex/yandex.api.js'
-import { MoyskladService } from '../moysklad/moysklad.service.js'
+import { AppLogger } from '../../../shared/logger.service.js'
+import { commissionTypes, fbsHfProject, fbsTopProject, states } from '../../marketplace/yandex/database.js'
+import { GetOrdersStatsRequest, GetOrdersStatsResponse, OrdersStatsOrderDTO } from '../../marketplace/yandex/types/api.js'
+import { YandexApiService } from '../../marketplace/yandex/yandex.api.js'
+import { MoyskladService } from '../../moysklad/moysklad.service.js'
 
 /**
  * Утилита для разбивки массива на чанки
@@ -23,7 +23,7 @@ function chunk<T>(arr: T[], size: number): T[][] {
  * Команда /check_commissions проверяет и обновляет комиссии в заказах и отгрузках
  */
 @Update()
-export class TelegramUpdate {
+export class CheckCommissionsCommand {
 	constructor(
 		private readonly moyskladService: MoyskladService, // сервис для работы с МойСклад
 		private readonly api: YandexApiService, // сервис для работы с Яндекс.Маркет

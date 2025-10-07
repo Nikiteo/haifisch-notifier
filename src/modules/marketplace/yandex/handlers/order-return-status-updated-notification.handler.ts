@@ -148,14 +148,14 @@ export class OrderReturnStatusUpdatedNotificationHandler extends BaseNotificatio
 					project,
 					vatSum,
 					name: orderId.toString(),
-					sum: totalAmount * 100,
+					sum: totalAmount === 0 ? orderInMs.sum : totalAmount * 100,
 					moment: dayjs(updatedAt).format('YYYY-MM-DD HH:mm:ss.SSS'),
 					// eslint-disable-next-line ts/ban-ts-comment
 					// @ts-expect-error
 					operations: [
 						{
 							meta: salesReturn.meta as unknown as Meta<Entity.SalesReturn>,
-							linkedSum: totalAmount * 100,
+							linkedSum: totalAmount === 0 ? orderInMs.sum : totalAmount * 100,
 						},
 					],
 					expenseItem: {
