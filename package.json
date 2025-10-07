@@ -13,29 +13,30 @@
 	},
 	"dependencies": {
 		"@nestjs/axios": "^4.0.1",
-		"@nestjs/common": "^11.1.5",
+		"@nestjs/common": "^11.1.6",
 		"@nestjs/config": "^4.0.2",
-		"@nestjs/core": "^11.1.5",
-		"@nestjs/platform-express": "^11.1.5",
-		"axios": "^1.10.0",
+		"@nestjs/core": "^11.1.6",
+		"@nestjs/platform-express": "^11.1.6",
+		"axios": "^1.12.2",
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.14.2",
-		"dayjs": "^1.11.13",
+		"dayjs": "^1.11.18",
 		"gigachat": "^0.0.16",
+		"lowdb": "^7.0.1",
 		"moysklad-ts": "^0.1.22",
 		"nestjs-telegraf": "^2.9.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.2",
 		"telegraf": "^4.16.3",
-		"winston": "^3.17.0"
+		"winston": "^3.18.3"
 	},
 	"devDependencies": {
-		"@antfu/eslint-config": "^4.17.0",
+		"@antfu/eslint-config": "^5.4.1",
 		"@nestjs/cli": "^11.0.10",
 		"@types/express": "^5.0.3",
-		"@types/node": "^24.5.2",
-		"swagger-typescript-api": "13.2.7",
+		"@types/node": "^24.7.0",
+		"swagger-typescript-api": "13.2.14",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.8.3"
+		"typescript": "^5.9.3"
 	}
 }

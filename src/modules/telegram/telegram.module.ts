@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TelegrafModule } from 'nestjs-telegraf'
+import { DbService } from '../../shared/db.service.js'
 import { AppLogger } from '../../shared/logger.service.js'
 import { YandexModule } from '../marketplace/yandex/yandex.module.js'
 import { MoyskladModule } from '../moysklad/moysklad.module.js'
@@ -27,7 +28,7 @@ import { TelegramService } from '../telegram/telegram.service.js'
 			},
 		}),
 	],
-	providers: [TelegramService, AppLogger, StartHandler, ChannelPostHandler, TelegramCommandsService, CheckCommissionsCommand],
+	providers: [TelegramService, AppLogger, StartHandler, ChannelPostHandler, DbService, TelegramCommandsService, CheckCommissionsCommand],
 	exports: [TelegramService],
 })
 export class TelegramModule {}
