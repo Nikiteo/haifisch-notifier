@@ -1,6 +1,5 @@
 import { Ctx, On, Update } from 'nestjs-telegraf'
 import { Context } from 'telegraf'
-import { Message, Update as UpdateTg } from 'telegraf/types'
 import { DbService } from '../../../shared/db.service.js'
 import { AppLogger } from '../../../shared/logger.service.js'
 
