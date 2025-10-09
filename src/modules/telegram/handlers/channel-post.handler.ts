@@ -17,12 +17,12 @@ export class ChannelPostHandler {
 		await this.db.addPost({ ...post })
 	}
 
-	@On('message')
-	async onForwarded(@Ctx() ctx: Context) {
-		const msg = ctx.message as unknown as UpdateTg.New & (UpdateTg.Channel & Message)
-		if (msg === null || msg === undefined)
-			return
+	// @On('message')
+	// async onForwarded(@Ctx() ctx: Context) {
+	// 	const msg = ctx.message as unknown as UpdateTg.New & (UpdateTg.Channel & Message)
+	// 	if (msg === null || msg === undefined)
+	// 		return
 
-		await this.db.addPost({ ...msg })
-	}
+	// 	await this.db.addPost({ ...msg })
+	// }
 }
